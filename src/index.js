@@ -1,70 +1,78 @@
-const bodyEl = document.querySelector("body");
-
-function createDogsListItem(dogs) {
-  for (let i = 0; i < data.length; i++) {
-    const dogs = data[i];
-    // console.log("Inside Dog's Data: ", dogs);
-
-    const headerEl = document.querySelector("header");
-    bodyEl.append(headerEl);
-
-    const titleEl = document.querySelector("h1");
-    titleEl.innerText = "";
-    headerEl.append(titleEl);
-
-    const ulEl = document.querySelector("ul");
-    ulEl.className = "dogs-list";
-    headerEl.append(ulEl);
-
-    const listEl = document.createElement("li");
-    listEl.className = "dogs-list__button dogs-list__button--add";
-
-    // listEl.innerText = dogs.name;
-
-    const buttonEl = document.createElement("button");
-    buttonEl.innerText = dogs.name;
-    listEl.append(buttonEl);
-
-    // console.log("Dogs Name: ", dogs.name);
-    ulEl.append(listEl);
+  const dogsListEl = document.querySelector(".dogs-list");
+  const mainSectionEl = document.querySelector(".main__dog-section");
+ 
+  
+  function renderDogsList(dogs) {
+    console.log("Inside renderDogsList: ", dogs);
+  
+    for (let i = 0; i < dogs.length; i++) {
+      const dog = dogs[i];
+      const name = dog.name;
+  
+      const listItemEl = document.createElement("li");
+      listItemEl.className = "dogs-list__button";
+  
+      listItemEl.innerText = name;  
+     
+      listItemEl.addEventListener("click", () => {
+        console.log("OnClick inside renderDogsList: ", dog);
+  
+        renderMainCard(dog);
+      });
+  
+      console.log(listItemEl);
+  
+      dogsListEl.append(listItemEl);
+    }
   }
-  return;
-}
-const dogsOwnerAppData = createDogsListItem(data);
-// console.log("inside dogsOnwerAppData: ", dogsOwnerAppData);
-
-const mainEl = document.querySelector("main");
-bodyEl.append(mainEl);
-
-function createCardElement(dog) {  
-    const sectionEl = document.querySelector("section");
-    sectionEl.className = "main__dog-section";
-    mainEl.append(sectionEl);
-
-    const h2El = document.querySelector("h2");
-    h2El.innerText = dog.name;
-
+  
+  renderDogsList(data);
+  
+  
+  function renderMainCard(dog) {
+    console.log("Inside renderMainCard: ", dog);
+  
+    mainSectionEl.innerHTML = "";
+  
+    const headingEl = document.createElement("h2");
+    headingEl.innerText = dog.name;
+  
+    mainSectionEl.append(headingEl);
+  
     const imageEl = document.createElement("img");
-    const imageSrc = dog.image;
-    // console.log("Dogs Images: ", image);
-    imageEl.setAttribute("src", imageSrc);
-    sectionEl.append(imageEl);
-
-    const divEl = document.createElement("div");
-    divEl.className = "main__dog-section__btn";
-    sectionEl.append(divEl);
-
-    const h3El = document.createElement("h3");
-    h3El.innerText = "Bio";
-    divEl.append(h3El);
-
-    const pEl = document.createElement("p");
-    const bio = dog.bio;
-    pEl.innerText = bio;
-    divEl.append(pEl);
-
-    const buttonEl = document.createElement("button");  
-  return;
-}
-const dogsOnlineCard = createCardElement(data);
-// console.log("Inside Card Online: ", dogsOnlineCard);
+    imageEl.setAttribute("height", 300);
+    imageEl.setAttribute("width", 400);
+    imageEl.src = dog.image;
+  
+    mainSectionEl.append(imageEl);
+  }
+  
+  
+  function renderBioSection(bio) {
+    console.log("Inside renderBioSection: ", bio);
+  
+    const containerEl = document.createElement("div");
+    containerEl.className = "main__dog-section__desc";
+  
+    const headingEl = document.createElement("h3");
+    headingEl.innerText = "Bio";
+  
+    containerEl.append(headingEl);
+  
+    const paragraphEl = document.createElement("p");
+    paragraphEl.innerText = bio;
+  
+    containerEl.append(paragraphEl);
+  
+    return containerEl;
+  }
+  
+  function renderBehaviourSection(behaviour) {
+    console.log("Inside renderBehaviourSection: ", behaviour);
+  
+    const containerEl = document.createElement("div");
+    containerEl.className = "main__dog-section__btn";
+  
+    return containerEl;
+  }
+  
